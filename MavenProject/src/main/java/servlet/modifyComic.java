@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -15,16 +14,16 @@ import dataConnection.ComicConnections;
 import element.Comic;
 
 /**
- * Servlet implementation class listPersona
+ * Servlet implementation class addComic
  */
-@WebServlet("/listComics")
-public class listComics extends HttpServlet {
+@WebServlet("/abms/modifyComic")
+public class modifyComic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public listComics() {
+    public modifyComic() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +33,17 @@ public class listComics extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = null;
+		RequestDispatcher rd = sc.getRequestDispatcher("/abms/modifyComic.jsp");
 		
-		ComicConnections c = new ComicConnections();
-		ArrayList<Comic> comics = new ArrayList<Comic>();
-		comics = c.getAll();
-		if (comics != null){
-			rd = sc.getRequestDispatcher("/listComics.jsp");
-			request.setAttribute("allComics", comics);
-			
+		ComicConnections comicConnection = new ComicConnections();
+		Comic c = comicConnection.getComicById(request.getParameter("id"));
+		if (c != null){
+			request.setAttribute("comic", c);
+			rd.forward(request,response);
 		}
-		else{
-			rd = sc.getRequestDispatcher("/errors.jsp");
-			String error = "Something went wrong";
-			request.setAttribute("error", error);
-		}
-			
-		rd.forward(request,response);
+		else
+			System.out.println("Something went wrong");
+		
 		
 	}
 
@@ -58,8 +51,30 @@ public class listComics extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
+		ServletContext sc = getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher("/listComics");
+		
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String name = request.getParameter("name");
+		String copys = request.getParameter("copys");
+		Comic update = new Comic(type,name,new Integer(copys));
+		update.setId(new Integer(id));
+		ComicConnections c = new ComicConnections();
+		String error =c.modify(update); 
+		if (error != null)
+			System.out.println(error);
+		else
+			rd.forward(request,response);
+			
+			
+		
+		
+	
+	
+	
+	}		
+		
+		
 }

@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataConnection.ComicConnections;
-import element.Comic;
+import dataConnection.PersonConnections;
+import element.Person;
 
 /**
  * Servlet implementation class addComic
  */
-@WebServlet("/abms/addComic")
-public class addComic extends HttpServlet {
+@WebServlet("/abms/addPerson")
+public class addPerson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public addComic() {
+	public addPerson() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -48,19 +48,21 @@ public class addComic extends HttpServlet {
 		RequestDispatcher rd = null;
 
 		String name = request.getParameter("name");
-		String copys = request.getParameter("copys");
-		String type = request.getParameter("type");
+		String surname = request.getParameter("surname");
 
-		Comic c = new Comic(type, name, new Integer(copys));
-		ComicConnections comics = new ComicConnections();
-		String error = comics.add(c);
+		Person p = new Person(name, surname);
+		PersonConnections persons = new PersonConnections();
+		String error = persons.add(p);
+
 		if (error != null) {
 			request.setAttribute("error", error);
 			rd = sc.getRequestDispatcher("/errors");
 		} else
-			rd = sc.getRequestDispatcher("/listComics");
-		
+			rd = sc.getRequestDispatcher("/listPersons");
+
 		rd.forward(request, response);
+
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 }

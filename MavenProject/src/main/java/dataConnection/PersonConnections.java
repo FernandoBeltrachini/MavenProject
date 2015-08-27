@@ -1,26 +1,26 @@
 package dataConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import element.Comic;
 import element.Person;
 
 public class PersonConnections extends DataBaseConnections<Person> {
 
 	@Override
-	public String remove(Person p) {
-		if (p.getId() == null || p.getId() == 0)
-			p = getPerson(p);
-		if (p != null) {
+	public String remove(String id) {
+		System.out.println(id);
+		if (id != null) {
 
 			try {
 				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM PERSON WHERE ID=?");
-				ps.setInt(1, p.getId());
+				ps.setInt(1, new Integer(id));
 				ps.executeUpdate();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				return "Error al eliminar una persona";
 			}
 			return null;
@@ -30,8 +30,7 @@ public class PersonConnections extends DataBaseConnections<Person> {
 
 	@Override
 	public String modify(Person p) {
-		if (p.getId() == null || p.getId() == 0)
-			p = getPerson(p);
+		
 		if (p != null) {
 			try {
 				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE PERSON SET NAME=?,SURNAME=? WHERE ID=?");
@@ -78,6 +77,55 @@ public class PersonConnections extends DataBaseConnections<Person> {
 			return null;
 		}
 
+	}
+	
+	public Person getPersonById(String id) {
+
+		try {
+			
+			PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("SELECT NAME,SURNAME FROM PERSON where ID=?");
+			ps.setInt(1, new Integer(id));
+			ResultSet rs = ps.executeQuery();
+			if (!rs.next())
+				return null;
+			Person p = new Person(rs.getString(1),rs.getString(2));
+			p.setId(new Integer(id));
+			return p;
+
+		} catch (SQLException e) {
+
+			return null;
+		}
+
+	}
+	
+	public ArrayList<Person> getAll() {
+
+		PreparedStatement p = null;
+		try {
+			p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT * FROM PERSON");
+			ResultSet rs = p.executeQuery();
+			ArrayList<Person> retorno = new ArrayList<Person>();
+			while (rs.next()) {
+
+				retorno.add(createPerson(rs));
+			}
+			return retorno;
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+
+	private Person createPerson(ResultSet rs) {
+		Person retorno = null;
+		try {
+			retorno = new Person (rs.getString(2),rs.getString(3));
+			retorno.setId(rs.getInt(1));
+		} catch (SQLException e) {
+			return null;
+		}
+		
+		return retorno;
 	}
 
 }

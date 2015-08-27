@@ -11,45 +11,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataConnection.ComicConnections;
-import element.Comic;
+import dataConnection.LoanConnections;
+import element.Loan;
 
 /**
  * Servlet implementation class listPersona
  */
-@WebServlet("/listComics")
-public class listComics extends HttpServlet {
+@WebServlet("/listLoans")
+public class listLoans extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public listComics() {
+    public listLoans() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = getServletContext();
 		RequestDispatcher rd = null;
 		
-		ComicConnections c = new ComicConnections();
-		ArrayList<Comic> comics = new ArrayList<Comic>();
-		comics = c.getAll();
-		if (comics != null){
-			rd = sc.getRequestDispatcher("/listComics.jsp");
-			request.setAttribute("allComics", comics);
+		LoanConnections l = new LoanConnections();
+		ArrayList<Loan> loans = new ArrayList<Loan>();
+		loans = l.getAllLoans();
+		if (loans != null){
+			request.setAttribute("allLoans", loans);
+			rd = sc.getRequestDispatcher("/listLoans.jsp");
 			
 		}
 		else{
-			rd = sc.getRequestDispatcher("/errors.jsp");
-			String error = "Something went wrong";
+			String error = new String ("No loans available");
 			request.setAttribute("error", error);
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		}
-			
+		
 		rd.forward(request,response);
 		
 	}

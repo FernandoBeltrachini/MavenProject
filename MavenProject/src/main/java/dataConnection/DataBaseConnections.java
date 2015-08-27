@@ -17,7 +17,7 @@ public abstract class DataBaseConnections <T extends Element> {
 	}
 	
 	public abstract String add(T element);
-	public abstract String remove(T elem);
+	public abstract String remove(String id);
 	public abstract String modify(T elem);
 	
 }

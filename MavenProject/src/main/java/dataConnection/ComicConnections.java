@@ -30,11 +30,11 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 	}
 
 	@Override
-	public String remove(Comic c) {
-		if (c.getId() == null || c.getId() == 0)
-			c = getComic(c);
-		if (c != null) {
+	public String remove(String id) {
+
+		if (id != null) {
 			LoanConnections loans = new LoanConnections();
+			Comic c = getComicById(id);
 			Integer cantLoans = loans.getCantLoans(c);
 			if (c.getCopys() > 1 && c.getCopys() > cantLoans) {
 
@@ -64,10 +64,11 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 			c = getComic(c);
 		if (c != null) {
 			try {
-				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE COMIC SET NAME=?, TYPE=?,COPYS=?");
+				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE COMIC SET NAME=?, TYPE=?,COPYS=? WHERE ID=?");
 				p.setString(1, c.getName());
 				p.setString(2, c.getType());
 				p.setInt(3, c.getCopys());
+				p.setInt(4, c.getId());
 				p.executeUpdate();
 
 			} catch (SQLException e) {
@@ -132,6 +133,24 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 			return null;
 		}
 
+	}
+	
+	public Comic getComicById(String id){
+			try {
+				
+				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT NAME,COPYS,TYPE FROM COMIC where ID=?");
+				p.setString(1, id);
+				ResultSet rs = p.executeQuery();
+				if (!rs.next())
+					return null;
+				Comic c = new Comic(rs.getString(3), rs.getString(1), rs.getInt(2));
+				c.setId(new Integer(id));
+				return c;
+
+			} catch (SQLException e) {
+				return null;
+			}
+		
 	}
 
 }

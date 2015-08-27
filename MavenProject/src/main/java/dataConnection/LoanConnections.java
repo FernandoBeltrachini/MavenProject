@@ -1,7 +1,5 @@
 package dataConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,11 +30,11 @@ public class LoanConnections extends DataBaseConnections<Loan> {
 	}
 
 	@Override
-	public String remove(Loan l) {
+	public String remove(String id) {
 			try {
-				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM LOAN WHERE IDCOMIC=? AND IDPERSON=?");
-				p.setInt(1, l.getComic().getId());
-				p.setInt(2, l.getPerson().getId());
+				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM LOAN WHERE ID=?");
+				p.setInt(1, new Integer(id));
+				
 				p.executeUpdate();
 			} catch (SQLException e) {
 				return "Error al eliminar un prestamo";

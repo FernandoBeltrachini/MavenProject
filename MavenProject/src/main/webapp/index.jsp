@@ -14,5 +14,15 @@
 	<form action="/MavenProject/listComics">
 		<button type="submit" >List Comic</button>
 	</form>
+	
+	<form action="/MavenProject/listPersons">
+		<button type="submit" >List Persons</button>
+	</form>
+	
+	<form action="/MavenProject/listLoans">
+		<button type="submit" >List Loans</button>
+	</form>
+	
+	
 </body>
 </html>
