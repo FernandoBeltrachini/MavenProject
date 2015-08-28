@@ -19,7 +19,7 @@
 
 
 		<label>Person id</label>
-		<input type="text" name="id" value="${person.id}" >
+		<input type="text" name="id" value="${person.id}" readonly="readonly">
 		<br/>
 
 		

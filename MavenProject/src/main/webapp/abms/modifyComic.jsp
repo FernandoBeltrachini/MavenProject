@@ -19,7 +19,7 @@
 
 
 		<label>Comic id</label>
-		<input type="text" name="id" value="${comic.id}">
+		<input type="text" name="id" value="${comic.id}" readonly="readonly">
 		<br/>
 
 		
