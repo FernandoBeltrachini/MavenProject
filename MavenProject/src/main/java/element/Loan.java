@@ -26,12 +26,18 @@ public class Loan extends Element{
 	
 	public Loan (ResultSet rs){
 		try {
-			this.id = rs.getInt(1);
+			this.id = rs.getInt(7);
 			this.comic = new Comic(rs.getString(3),rs.getString(2));
 			this.person = new Person (rs.getString(8),rs.getString(9));
 		} catch (SQLException e) {
 		}
 		
+		
+	}
+	
+	public Loan (String comicId,String personId){
+		this.comic = new Comic(comicId);
+		this.person = new Person(personId);
 		
 	}
 	

@@ -32,6 +32,11 @@ public class Comic extends Element{
 		}
 		
 	}
+	
+	public Comic (String id){
+		this.id =  new Integer(id);
+		
+	}
 
 
 	public String getType() {

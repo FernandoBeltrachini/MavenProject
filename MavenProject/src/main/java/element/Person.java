@@ -11,6 +11,11 @@ public class Person extends Element{
 		this.surname = surname;
 	}
 	
+	public Person (String id){
+		this.id = new Integer (id);
+		
+	}
+	
 	public String getName() {
 		return name;
 	}

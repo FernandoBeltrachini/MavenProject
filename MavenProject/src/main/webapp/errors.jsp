@@ -16,7 +16,8 @@
 
 
 	<label>You got an error:</label>
-	<label type="text" value="${error}"></label>
+	<br />
+	<c:out value="${error}" />
 	<br />
 
 </body>

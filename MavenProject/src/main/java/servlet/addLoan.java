@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -10,7 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataConnection.ComicConnections;
+import dataConnection.LoanConnections;
 import dataConnection.PersonConnections;
+import element.Comic;
+import element.Loan;
 import element.Person;
 
 /**
@@ -28,8 +33,28 @@ public class addLoan extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		ServletContext sc = getServletContext();
+		RequestDispatcher rd = null;
+		
+		PersonConnections p = new PersonConnections();
+		ArrayList<Person> persons = new ArrayList<Person>();
+		persons = p.getAll();
+		ComicConnections c = new ComicConnections();
+		ArrayList<Comic> comics = new ArrayList<Comic>();
+		comics = c.getAll();
+		
+		if (persons != null && comics != null){
+			rd = sc.getRequestDispatcher("/abms/addLoan.jsp");
+			request.setAttribute("allPersons", persons);
+			request.setAttribute("allComics", comics);
+		}
+		else
+		{
+			request.setAttribute("error", "Persons or comics are not available.");
+			rd = sc.getRequestDispatcher("/errors");
+		}
+		rd.forward(request,response);
 
 	}
 
@@ -41,20 +66,36 @@ public class addLoan extends HttpServlet {
 
 		ServletContext sc = getServletContext();
 		RequestDispatcher rd = null;
-
-		String name = request.getParameter("name");
-		String surname = request.getParameter("surname");
-
-		Person p = new Person(name, surname);
-		PersonConnections persons = new PersonConnections();
-		String error = persons.add(p);
+		
+		String person = request.getParameter("person");
+		String comic = request.getParameter("comic");
+//		request.setAttribute("error", name);
+		LoanConnections l = new LoanConnections();
+		Loan loan = new Loan(comic,person);
+		String error = l.add(loan);
 		if (error != null) {
 			request.setAttribute("error", error);
 			rd = sc.getRequestDispatcher("/errors");
 		} else
 			rd = sc.getRequestDispatcher("/listLoans");
-
+		
 		rd.forward(request, response);
+//		ServletContext sc = getServletContext();
+//		RequestDispatcher rd = null;
+//
+//		String name = request.getParameter("name");
+//		String surname = request.getParameter("surname");
+//
+//		Person p = new Person(name, surname);
+//		PersonConnections persons = new PersonConnections();
+//		String error = persons.add(p);
+//		if (error != null) {
+//			request.setAttribute("error", error);
+//			rd = sc.getRequestDispatcher("/errors");
+//		} else
+//			rd = sc.getRequestDispatcher("/listLoans");
+//
+//		rd.forward(request, response);
 
 	}
 

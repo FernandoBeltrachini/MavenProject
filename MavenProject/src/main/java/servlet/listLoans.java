@@ -32,13 +32,13 @@ public class listLoans extends HttpServlet {
 		LoanConnections l = new LoanConnections();
 		ArrayList<Loan> loans = new ArrayList<Loan>();
 		loans = l.getAllLoans();
-		if (loans != null){
+		if (loans != null ){
 			request.setAttribute("allLoans", loans);
 			rd = sc.getRequestDispatcher("/listLoans.jsp");
 			
 		}
 		else{
-			String error = new String ("No loans available");
+			String error = new String ("Loans are not availables.");
 			request.setAttribute("error", error);
 			rd = sc.getRequestDispatcher("/errors.jsp");
 		}

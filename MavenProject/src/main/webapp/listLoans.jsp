@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Persons List</title>
+<title>Loan List</title>
 </head>
 <body>
 	<form action="/MavenProject/index.jsp">
@@ -13,13 +13,14 @@
 	</form>
 
 
-<!-- 	<form action="/MavenProject/abms/addLoan.jsp"> -->
-<!-- 		<button type="submit">Add Loan</button> -->
-<!-- 	</form> -->
+	<form action="/MavenProject/abms/addLoan">
+		<button type="submit">Add Loan</button>
+	</form>
 	<h1>Loans List</h1>
 	<table>
 		<c:forEach items="${allLoans}" var="item">
 			<tr>
+				<td><c:out value="${item.id}" /></td>
 				<td><c:out value="${item.person.id}" /></td>
 				<td><c:out value="${item.person.name}" /></td>
 				<td><c:out value="${item.person.surname}" /></td>

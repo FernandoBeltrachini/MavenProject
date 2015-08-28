@@ -13,6 +13,10 @@ public class LoanConnections extends DataBaseConnections<Loan> {
 	@Override
 	public String add(Loan l) {
 		if (l.getComic() != null && l.getPerson() != null) {
+			ComicConnections c = new ComicConnections();
+			String id = l.getComic().getId().toString();
+			l.setComic(c.getComicById(id));
+			
 			if (!(l.getComic().getCopys() > getCantLoans(l.getComic())))
 				return "No hay copias disponibles";
 
