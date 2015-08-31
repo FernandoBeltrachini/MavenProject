@@ -38,14 +38,10 @@ public class deleteComic extends HttpServlet {
 		
 		ComicConnections comicConnection = new ComicConnections();
 		String error = comicConnection.remove(request.getParameter("id"));
-		if (error != null) {
-			request.setAttribute("error", error);
-			rd = sc.getRequestDispatcher("/errors");
-		} else
-			rd = sc.getRequestDispatcher("/listLoans");
+
 		if (error != null){
 			request.setAttribute("error", error);
-			rd = sc.getRequestDispatcher("/errors");
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		}
 		else
 			rd = sc.getRequestDispatcher("/listComics");

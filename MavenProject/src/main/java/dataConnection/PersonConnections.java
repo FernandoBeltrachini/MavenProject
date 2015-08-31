@@ -22,7 +22,6 @@ public class PersonConnections extends DataBaseConnections<Person> {
 				else
 					return "Couldnt get data base Connections";
 			} catch (SQLException e) {
-				e.printStackTrace();
 				return "Couldnt Erase the person";
 			}
 			return null;

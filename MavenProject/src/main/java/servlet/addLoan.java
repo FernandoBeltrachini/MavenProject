@@ -52,7 +52,7 @@ public class addLoan extends HttpServlet {
 		else
 		{
 			request.setAttribute("error", "Persons or comics are not available.");
-			rd = sc.getRequestDispatcher("/errors");
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		}
 		rd.forward(request,response);
 
@@ -75,27 +75,12 @@ public class addLoan extends HttpServlet {
 		String error = l.add(loan);
 		if (error != null) {
 			request.setAttribute("error", error);
-			rd = sc.getRequestDispatcher("/errors");
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		} else
 			rd = sc.getRequestDispatcher("/listLoans");
 		
 		rd.forward(request, response);
-//		ServletContext sc = getServletContext();
-//		RequestDispatcher rd = null;
-//
-//		String name = request.getParameter("name");
-//		String surname = request.getParameter("surname");
-//
-//		Person p = new Person(name, surname);
-//		PersonConnections persons = new PersonConnections();
-//		String error = persons.add(p);
-//		if (error != null) {
-//			request.setAttribute("error", error);
-//			rd = sc.getRequestDispatcher("/errors");
-//		} else
-//			rd = sc.getRequestDispatcher("/listLoans");
-//
-//		rd.forward(request, response);
+
 
 	}
 

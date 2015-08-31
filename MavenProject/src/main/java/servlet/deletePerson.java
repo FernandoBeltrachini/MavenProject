@@ -42,7 +42,7 @@ public class deletePerson extends HttpServlet {
 	
 		if (error != null){
 			request.setAttribute("error", error);
-			rd = sc.getRequestDispatcher("/errors");
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		}
 		else
 			sc.getRequestDispatcher("/listPersons");

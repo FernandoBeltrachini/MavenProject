@@ -56,7 +56,7 @@ public class addPerson extends HttpServlet {
 
 		if (error != null) {
 			request.setAttribute("error", error);
-			rd = sc.getRequestDispatcher("/errors");
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		} else
 			rd = sc.getRequestDispatcher("/listPersons");
 

@@ -42,7 +42,7 @@ public class deleteLoan extends HttpServlet {
 			rd = sc.getRequestDispatcher("/listLoans");
 		else{
 			request.setAttribute("error", error);
-			rd = sc.getRequestDispatcher("/errors");
+			rd = sc.getRequestDispatcher("/errors.jsp");
 		}
 		rd.forward(request,response);
 		
