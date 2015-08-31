@@ -10,7 +10,6 @@
 
 	<h1>Person to be modified</h1>
 
-		
 	<form action="modifyPerson" method="POST">
 
 
@@ -31,12 +30,6 @@
 		<input type="submit" value="Submit">
 		
 	</form>
-	
-
-
-
-
-
 
 </body>
 </html>

@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import element.Comic;
 import element.Person;
 
 public class PersonConnections extends DataBaseConnections<Person> {
