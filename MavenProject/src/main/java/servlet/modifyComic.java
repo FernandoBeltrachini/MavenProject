@@ -53,7 +53,7 @@ public class modifyComic extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/listComics");
+		RequestDispatcher rd = null;
 		
 		String id = request.getParameter("id");
 		String type = request.getParameter("type");
@@ -63,12 +63,15 @@ public class modifyComic extends HttpServlet {
 		update.setId(new Integer(id));
 		ComicConnections c = new ComicConnections();
 		String error =c.modify(update); 
-		if (error != null)
-			System.out.println(error);
+		if (error != null){
+			request.setAttribute("error", error);
+			rd = sc.getRequestDispatcher("/errors.jsp");
+		}
 		else
-			rd.forward(request,response);
+			rd = sc.getRequestDispatcher("/listComics");
 			
-			
+		rd.forward(request,response);	
+		
 		
 		
 	

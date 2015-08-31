@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -10,37 +9,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dataConnection.PersonConnections;
-import element.Person;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class listPersona
+ * Servlet implementation class addComic
  */
-@WebServlet("/listPersons")
-public class listPersons extends HttpServlet {
+@WebServlet("/logout")
+public class logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public listPersons() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public logout() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = null;
-		
-		PersonConnections p = new PersonConnections();
-		ArrayList<Person> persons = new ArrayList<Person>();
-		persons = p.getAll();
-		if (persons != null){
-			rd = sc.getRequestDispatcher("/listPersons.jsp");
-			request.setAttribute("allPersons", persons);
-		}
-		else{
-			request.setAttribute("error", "Persons are not availables.");
-			rd = sc.getRequestDispatcher("/errors.jsp");
-		}
-			
+		RequestDispatcher rd = sc.getRequestDispatcher("/index");;
+		HttpSession session = request.getSession();
+		session.setAttribute("role", null);
+		session.invalidate();
 		rd.forward(request,response);
 		
 	}
@@ -49,8 +44,7 @@ public class listPersons extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

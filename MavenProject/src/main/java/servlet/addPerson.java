@@ -62,7 +62,6 @@ public class addPerson extends HttpServlet {
 
 		rd.forward(request, response);
 
-		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 }

@@ -17,7 +17,7 @@
 		<button type="submit" >Add Comic</button>
 	</form>
 
-	<table>
+	<table style="border-color: red;">
 		<c:forEach items="${allComics}" var="item">
 			<tr>
 				<td><c:out value="${item.id}" /></td>
@@ -26,7 +26,7 @@
 				<td><c:out value="${item.copys}" /></td>
 				
 				<td>
-					<a href="/MavenProject/abms/modifyComic?id=${item.id}">Edit</a>
+					<a href="/MavenProject/abms/modifyComic?id=${item.id}" >Edit</a>
 					<a href="/MavenProject/abms/deleteComic?id=${item.id}">Delete</a>
 				</td>
 		</c:forEach>

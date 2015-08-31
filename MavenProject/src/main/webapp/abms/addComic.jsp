@@ -11,16 +11,16 @@
 	
 	<form action="addComic" method="POST">
 		<label>Comic Name</label>
-		<input type="text" name="name">
+		<input type="text" name="name" required maxlength="45">
 		<br/>
 		
 		
 		<label>Comic Type</label>
-		<input type="text" name="type">
+		<input type="text" name="type" required maxlength="45">
 		<br/>
 		
 		<label>Comic Copys</label>
-		<input type="number" name="copys">
+		<input type="number" name="copys" required min="0">
 		<br/>
 		<input type="submit" value="Submit">
 		

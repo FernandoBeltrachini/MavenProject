@@ -53,7 +53,7 @@ public class modifyPerson extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/listPersons");
+		RequestDispatcher rd = null;
 		
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
@@ -62,10 +62,13 @@ public class modifyPerson extends HttpServlet {
 		update.setId(new Integer(id));
 		PersonConnections p = new PersonConnections();
 		String error =p.modify(update); 
-		if (error != null)
-			System.out.println(error);
+		if (error != null){
+			request.setAttribute("error", error);
+			rd = sc.getRequestDispatcher("/errors.jsp");
+		}
 		else
-			rd.forward(request,response);
+			rd = sc.getRequestDispatcher("/listPersons");
+		rd.forward(request,response);
 	
 	}		
 		

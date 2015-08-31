@@ -24,17 +24,18 @@
 
 		
 		<label>Comic Name</label>
-		<input type="text" name="name" value="${comic.name}">
+		<input type="text" name="name" value="${comic.name}" required maxlength="45">
 		<br/>
 		
 		
 		<label>Comic Type</label>
-		<input type="text" name="type" value="${comic.type}">
+		<input type="text" name="type" value="${comic.type}" required maxlength="45">
 		<br/>
 		
 		<label>Comic Copys</label>
-		<input type="number" name="copys" value="${comic.copys}">
+		<input type="number" name="copys" value="${comic.copys}" required min="0">
 		<br/>
+		
 		<input type="submit" value="Submit">
 		
 	</form>

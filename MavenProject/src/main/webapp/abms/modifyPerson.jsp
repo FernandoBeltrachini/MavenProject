@@ -24,12 +24,12 @@
 
 		
 		<label>Person Name</label>
-		<input type="text" name="name" value="${person.name}">
+		<input type="text" name="name" value="${person.name}" maxlength="45" required maxlength="45">
 		<br/>
 		
 		
 		<label>Person Surname</label>
-		<input type="text" name="surname" value="${person.surname}">
+		<input type="text" name="surname" value="${person.surname}" required maxlength="45">
 		<br/>
 		
 		<input type="submit" value="Submit">
