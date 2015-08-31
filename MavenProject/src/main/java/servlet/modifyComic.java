@@ -33,18 +33,21 @@ public class modifyComic extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/abms/modifyComic.jsp");
+		RequestDispatcher rd = null;
 		
 		ComicConnections comicConnection = new ComicConnections();
 		Comic c = comicConnection.getComicById(request.getParameter("id"));
 		if (c != null){
 			request.setAttribute("comic", c);
-			rd.forward(request,response);
+			rd = sc.getRequestDispatcher("/abms/modifyComic.jsp");
 		}
 		else
-			System.out.println("Something went wrong");
+			{
+				rd = sc.getRequestDispatcher("/errors.jsp");
+				request.setAttribute("error", "Couldnt get comic");
+			}
 		
-		
+		rd.forward(request,response);
 	}
 
 	/**

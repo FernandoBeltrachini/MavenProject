@@ -12,20 +12,22 @@ public class PersonConnections extends DataBaseConnections<Person> {
 
 	@Override
 	public String remove(String id) {
-		System.out.println(id);
 		if (id != null) {
-
 			try {
-				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM PERSON WHERE ID=?");
-				ps.setInt(1, new Integer(id));
-				ps.executeUpdate();
+				if (ConnectionSingleton.getInstance() != null){
+					PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM PERSON WHERE ID=?");
+					ps.setInt(1, new Integer(id));
+					ps.executeUpdate();
+				}
+				else
+					return "Couldnt get data base Connections";
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return "Error al eliminar una persona";
+				return "Couldnt Erase the person";
 			}
 			return null;
 		}
-		return "No se pudo obtener la persona";
+		return "Couldnt Get the person";
 	}
 
 	@Override
@@ -33,29 +35,37 @@ public class PersonConnections extends DataBaseConnections<Person> {
 		
 		if (p != null) {
 			try {
-				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE PERSON SET NAME=?,SURNAME=? WHERE ID=?");
-				ps.setString(1, p.getName());
-				ps.setString(2, p.getSurname());
-				ps.setInt(3, p.getId());
-				ps.executeUpdate();
+				if (ConnectionSingleton.getInstance() != null){
+					PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE PERSON SET NAME=?,SURNAME=? WHERE ID=?");
+					ps.setString(1, p.getName());
+					ps.setString(2, p.getSurname());
+					ps.setInt(3, p.getId());
+					ps.executeUpdate();
+					}
+				else
+					return "Couldnt get data base Connections";
 			} catch (SQLException e) {
-				return "Error al modificar una persona";
+				return "Couldnt Modify Person";
 			}
 			return null;
 		}
-		return "La persona no existe en la base de datos.";
+		return "Person Dosnt Exist";
 	}
 
 	@Override
 	public String add(Person p) {
 
 		try {
-			PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("INSERT INTO PERSON (NAME,SURNAME) VALUES (?,?)");
-			ps.setString(1, p.getName());
-			ps.setString(2, p.getSurname());
-			ps.executeUpdate();
+			if (ConnectionSingleton.getInstance() != null){
+				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("INSERT INTO PERSON (NAME,SURNAME) VALUES (?,?)");
+				ps.setString(1, p.getName());
+				ps.setString(2, p.getSurname());
+				ps.executeUpdate();
+			}
+			else
+				return "Couldnt get data base Connections";
 		} catch (SQLException e) {
-			return "Error al insertar una persona";
+			return "Couldnt inser a person";
 		}
 		return null;
 	}
@@ -63,14 +73,17 @@ public class PersonConnections extends DataBaseConnections<Person> {
 	public Person getPerson(Person p) {
 
 		try {
-			PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("SELECT ID,NAME,SURNAME FROM PERSON where NAME=? AND SURNAME=?");
-			ps.setString(1, p.getName());
-			ps.setString(2, p.getSurname());
-			ResultSet rs = ps.executeQuery();
-			if (!rs.next())
-				return null;
-			p.setId(rs.getInt(1));
-			return p;
+			if (ConnectionSingleton.getInstance() != null){
+				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("SELECT ID,NAME,SURNAME FROM PERSON where NAME=? AND SURNAME=?");
+				ps.setString(1, p.getName());
+				ps.setString(2, p.getSurname());
+				ResultSet rs = ps.executeQuery();
+				if (!rs.next())
+					return null;
+				p.setId(rs.getInt(1));
+				return p;
+				}
+			return null;
 
 		} catch (SQLException e) {
 
@@ -82,18 +95,19 @@ public class PersonConnections extends DataBaseConnections<Person> {
 	public Person getPersonById(String id) {
 
 		try {
-			
-			PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("SELECT NAME,SURNAME FROM PERSON where ID=?");
-			ps.setInt(1, new Integer(id));
-			ResultSet rs = ps.executeQuery();
-			if (!rs.next())
+			if (ConnectionSingleton.getInstance() != null){
+				PreparedStatement ps = ConnectionSingleton.getInstance().con.prepareStatement("SELECT NAME,SURNAME FROM PERSON where ID=?");
+				ps.setInt(1, new Integer(id));
+				ResultSet rs = ps.executeQuery();
+				if (!rs.next())
+					return null;
+				Person p = new Person(rs.getString(1),rs.getString(2));
+				p.setId(new Integer(id));
+				return p;}
+			else
 				return null;
-			Person p = new Person(rs.getString(1),rs.getString(2));
-			p.setId(new Integer(id));
-			return p;
 
 		} catch (SQLException e) {
-
 			return null;
 		}
 
@@ -103,14 +117,17 @@ public class PersonConnections extends DataBaseConnections<Person> {
 
 		PreparedStatement p = null;
 		try {
-			p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT * FROM PERSON");
-			ResultSet rs = p.executeQuery();
-			ArrayList<Person> retorno = new ArrayList<Person>();
-			while (rs.next()) {
-
-				retorno.add(createPerson(rs));
-			}
-			return retorno;
+			if (ConnectionSingleton.getInstance() != null){
+				p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT * FROM PERSON");
+				ResultSet rs = p.executeQuery();
+				ArrayList<Person> retorno = new ArrayList<Person>();
+				while (rs.next()) {
+	
+					retorno.add(createPerson(rs));
+				}
+				return retorno;
+				}
+			return null;
 		} catch (SQLException e) {
 			return null;
 		}

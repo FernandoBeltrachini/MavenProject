@@ -17,8 +17,6 @@ public class ConnectionSingleton {
 		try {
 			con = DriverManager.getConnection(jdbcUrlConnection, user, password);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

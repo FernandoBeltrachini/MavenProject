@@ -33,17 +33,20 @@ public class modifyPerson extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/abms/modifyPerson.jsp");
+		RequestDispatcher rd = null;
 		
 		PersonConnections personConnection = new PersonConnections();
 		Person p = personConnection.getPersonById(request.getParameter("id"));
 		if (p != null){
+			rd = sc.getRequestDispatcher("/abms/modifyPerson.jsp");
 			request.setAttribute("person", p);
-			rd.forward(request,response);
+			
 		}
-		else
-			System.out.println("Something went wrong");
-		
+		else{
+			rd = sc.getRequestDispatcher("/errors.jsp");
+			request.setAttribute("error", "Couldnt modify person.");
+		}
+		rd.forward(request,response);
 		
 	}
 

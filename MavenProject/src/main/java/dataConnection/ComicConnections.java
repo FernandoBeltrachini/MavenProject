@@ -16,15 +16,18 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 	public String add(Comic c) {
 
 		try {
-			PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("INSERT INTO COMIC (NAME,TYPE,COPYS) VALUES (?,?,?)");
-			p.setString(1, c.getName());
-			p.setString(2,c.getType());
-			p.setInt(3,c.getCopys());
-			p.executeUpdate();
-
+			if (ConnectionSingleton.getInstance() != null){
+				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("INSERT INTO COMIC (NAME,TYPE,COPYS) VALUES (?,?,?)");
+				p.setString(1, c.getName());
+				p.setString(2,c.getType());
+				p.setInt(3,c.getCopys());
+				p.executeUpdate();
+			}
+			else
+				return "Cant open data base Connections";
 		} catch (SQLException e) {
 			
-			return "Error al insertar un comic";
+			return "Cant insert Comic";
 		}
 		return null;
 	}
@@ -44,17 +47,21 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 				System.out.println("Debes recuperar el comic antes de borrarlo");
 			} else {
 				try {
-					PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM COMIC WHERE ID=?");
-					p.setInt(1, c.getId());
-					p.executeUpdate();
+					if (ConnectionSingleton.getInstance() != null){
+						PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("DELETE FROM COMIC WHERE ID=?");
+						p.setInt(1, c.getId());
+						p.executeUpdate();
+						}
+					else
+						return "Cant open data base Connections";
 				} catch (SQLException e) {
 				
-					return "Error al eliminar un comic";
+					return "Cant erase Comic";
 				}
 			}
 			return null;
 		} else
-			return "No existe el comic";
+			return "Comic does not exists";
 
 	}
 
@@ -64,70 +71,62 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 			c = getComic(c);
 		if (c != null) {
 			try {
-				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE COMIC SET NAME=?, TYPE=?,COPYS=? WHERE ID=?");
-				p.setString(1, c.getName());
-				p.setString(2, c.getType());
-				p.setInt(3, c.getCopys());
-				p.setInt(4, c.getId());
-				p.executeUpdate();
-
+				if (ConnectionSingleton.getInstance() != null){
+					PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("UPDATE COMIC SET NAME=?, TYPE=?,COPYS=? WHERE ID=?");
+					p.setString(1, c.getName());
+					p.setString(2, c.getType());
+					p.setInt(3, c.getCopys());
+					p.setInt(4, c.getId());
+					p.executeUpdate();
+				}
+				else
+					return "Cant open data base Connections";
 			} catch (SQLException e) {
-				return "Error al insertar un comic";
+				return "Cant insert Comic";
 			}
 			return null;
 		}
-		return "No se pudo obtener el comic";
+		return "Cant obtain Comic";
 	}
 
 	public ArrayList<Comic> getAll() {
 
 		PreparedStatement p = null;
 		try {
-			p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT * FROM COMIC");
-			ResultSet rs = p.executeQuery();
-			ArrayList<Comic> retorno = new ArrayList<Comic>();
-			while (rs.next()) {
-
-				retorno.add(new Comic(rs));
-			}
-			return retorno;
+			if (ConnectionSingleton.getInstance() != null){
+				p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT * FROM COMIC");
+				ResultSet rs = p.executeQuery();
+				ArrayList<Comic> retorno = new ArrayList<Comic>();
+				while (rs.next()) {
+	
+					retorno.add(new Comic(rs));
+				}
+				return retorno;
+				}
+			else
+				return null; 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return null;
 		}
-	}
-
-	public Integer getId(Comic c) {
-		try {
-			
-			PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT ID FROM COMIC where NAME=? AND TYPE=?");
-			p.setString(1, c.getName());
-			p.setString(2, c.getType());
-			p.executeUpdate();
-			ResultSet rs = p.executeQuery();
-			rs.next();
-			return rs.getInt(1);
-
-		} catch (SQLException e) {
-
-			return null;
-		}
-
 	}
 
 	public Comic getComic(Comic c) {
 
 
 		try {
-			PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT ID,COPYS FROM COMIC where NAME=? AND TYPE=?");
-			p.setString(1, c.getName());
-			p.setString(2, c.getType());
-			ResultSet rs = p.executeQuery();
-			if (!rs.next())
-				return null;
-			c.setId(rs.getInt(1));
-			c.setCopys(rs.getInt(2));
-			return c;
+			
+			if (ConnectionSingleton.getInstance() != null){
+				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT ID,COPYS FROM COMIC where NAME=? AND TYPE=?");
+				p.setString(1, c.getName());
+				p.setString(2, c.getType());
+				ResultSet rs = p.executeQuery();
+				if (!rs.next())
+					return null;
+				c.setId(rs.getInt(1));
+				c.setCopys(rs.getInt(2));
+				return c;
+				}
+			return null;
 
 		} catch (SQLException e) {
 			return null;
@@ -137,16 +136,17 @@ public class ComicConnections extends DataBaseConnections<Comic> {
 	
 	public Comic getComicById(String id){
 			try {
-				
-				PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT NAME,COPYS,TYPE FROM COMIC where ID=?");
-				p.setString(1, id);
-				ResultSet rs = p.executeQuery();
-				if (!rs.next())
-					return null;
-				Comic c = new Comic(rs.getString(3), rs.getString(1), rs.getInt(2));
-				c.setId(new Integer(id));
-				return c;
-
+				if (ConnectionSingleton.getInstance() != null){
+					PreparedStatement p = ConnectionSingleton.getInstance().con.prepareStatement("SELECT NAME,COPYS,TYPE FROM COMIC where ID=?");
+					p.setString(1, id);
+					ResultSet rs = p.executeQuery();
+					if (!rs.next())
+						return null;
+					Comic c = new Comic(rs.getString(3), rs.getString(1), rs.getInt(2));
+					c.setId(new Integer(id));
+					return c;
+				}
+				return null;
 			} catch (SQLException e) {
 				return null;
 			}
