@@ -5,7 +5,7 @@
 <title>Comics List</title>
 </head>
 <body>
-	<form action="/MavenProject/backListComic">
+	<form action="/MavenProject/backListComic" style="float: right;">
 		<button class="myButton" type="submit">Back</button>
 	</form>
 

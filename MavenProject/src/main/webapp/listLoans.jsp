@@ -6,7 +6,7 @@
 <title>Loan List</title>
 </head>
 <body>
-	<form action="/MavenProject/menu/loginMenu.jsp">
+	<form action="/MavenProject/menu/loginMenu.jsp" style="float: right;">
 		<button class="myButton" type="submit">Back</button>
 	</form>
 
