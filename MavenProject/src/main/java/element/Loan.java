@@ -28,7 +28,8 @@ public class Loan extends Element{
 		try {
 			this.id = rs.getInt(7);
 			this.comic = new Comic(rs.getString(3),rs.getString(2));
-			this.person = new Person (rs.getString(8),rs.getString(9));
+			this.person = new Person (rs.getString(9),rs.getString(10));
+			this.person.setId(new Integer(rs.getString(8)));
 		} catch (SQLException e) {
 		}
 		

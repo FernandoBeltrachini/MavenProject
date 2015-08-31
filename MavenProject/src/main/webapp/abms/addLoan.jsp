@@ -1,13 +1,14 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
 <head>
 <title>Java Academy 2</title>
 </head>
 <body>
 
 	<form action="/MavenProject/listLoans">
-		<button type="submit">Back</button>
+		<button class="myButton" type="submit">Back</button>
 	</form>
 
 	<h2>New Comic Information</h2>
@@ -27,7 +28,7 @@
 			</c:forEach>
 		</select> 
 		
-		<br /> <input type="submit" value="Submit">
+		<br /> <input class="myButton" type="submit" value="Submit">
 	</form>
 
 

@@ -1,12 +1,13 @@
 
 <html>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
 <head>
 <title>Add Person</title>
 </head>
 <body>
 
 <form action="/MavenProject/listPersons">
-		<button type="submit">Back</button>
+		<button class="myButton" type="submit">Back</button>
 	</form>
 
 	<h2>New Person Information</h2>
@@ -21,7 +22,7 @@
 		<input type="text" name="type" required maxlength="45">
 		<br/>
 		
-		<input type="submit" value="Submit">
+		<input class="myButton" type="submit" value="Submit">
 		
 	</form>
 	

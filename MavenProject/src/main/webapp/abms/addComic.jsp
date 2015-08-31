@@ -1,11 +1,12 @@
 
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
 <title>Java Academy 2</title>
 </head>
 <body>
 	<form action="/MavenProject/listComics">
-		<button type="submit">Back</button>
+		<button class="myButton" type="submit">Back</button>
 	</form>
 	
 	<h2>New Comic Information</h2>
@@ -25,7 +26,7 @@
 		<label>Comic Copys</label>
 		<input type="number" name="copys" required min="0">
 		<br/>
-		<input type="submit" value="Submit">
+		<input class="myButton" type="submit" value="Submit">
 		
 	</form>
 	
