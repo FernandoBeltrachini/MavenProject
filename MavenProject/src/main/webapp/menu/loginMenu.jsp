@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="myStyles.css">
 <title>Login Menu</title>
 </head>
 <body>
@@ -17,40 +13,39 @@
 
 
 	<form action="/MavenProject/listLoans">
-		<button type="submit">List Loans</button>
-	</form>
-
-
-	<form name="listPersons" action="/MavenProject/listPersons">
-		<div class="roles">
-			<button type="submit">List Persons</button>
-
+		<div class="roles" >
+			<button type="submit">List Loans</button>
 		</div>
 	</form>
 
-	<form action="/MavenProject/logOut">
+	<form name="listPersons" action="/MavenProject/listPersons">
+		<div class="roles" >
+			<button type="submit">List Persons</button>
+		</div>
+	</form>
+
+	<form action="/MavenProject/logout">
 		<button type="submit">Log Out</button>
 	</form>
 
+	<c:set var="a" value="sessionScope.role"/>
 	<c:choose>
-		<%-- 	<c:when test="${accion.equals('admin')}" scope="session"> --%>
-		<c:when test="${true}">
+		<c:when test="${sessionScope.role.equals('admin')}" > 
 			<script type="text/javascript">
-				document.getElementsByClassName('roles').visibility = hidden;
+				var elements = document.getElementsByClassName('roles');
+				for (i = 0; i < elements .length ;i++)
+					elements[i].style.visibility = 'visible';
 			</script>
 		</c:when>
 		<c:otherwise>
 			<script type="text/javascript">
-				document.getElementsByClassName('roles').visibility = hidden;
+				var elements = document.getElementsByClassName('roles');
+				for (i = 0; i < elements .length ;i++)
+					elements[i].style.visibility = 'hidden';
 			</script>
 
 		</c:otherwise>
 	</c:choose>
-
-
-
-
-
 
 </body>
 </html>

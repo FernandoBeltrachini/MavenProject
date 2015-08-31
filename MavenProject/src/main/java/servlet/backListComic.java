@@ -11,37 +11,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dataConnection.ComicConnections;
+import element.Comic;
+
 /**
  * Servlet implementation class addComic
  */
-@WebServlet("/logout")
-public class logout extends HttpServlet {
+@WebServlet("/backListComic")
+public class backListComic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public logout() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		ServletContext sc = getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/index.jsp");;
-		HttpSession session = request.getSession();
-		session.setAttribute("role", null);
-		session.invalidate();
-		rd.forward(request,response);
-		
+	public backListComic() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext sc = getServletContext();
+		RequestDispatcher rd = null;
+		HttpSession session = request.getSession();
+		if (session.getAttribute("role") != null)
+			rd = sc.getRequestDispatcher("/menu/loginMenu.jsp");
+		else
+			rd = sc.getRequestDispatcher("/index.jsp");
+		rd.forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

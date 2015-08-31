@@ -7,7 +7,13 @@
 <title>Java Academy 2</title>
 </head>
 <body>
+	<form action="/MavenProject/listComics">
+		<button type="submit">Back</button>
+	</form>
+	
 	<h2>New Comic Information</h2>
+	
+	
 	
 	<form action="addComic" method="POST">
 		<label>Comic Name</label>

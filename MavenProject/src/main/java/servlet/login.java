@@ -47,16 +47,12 @@ public class login extends HttpServlet {
 
 		ServletContext sc = getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher("/menu/loginMenu.jsp");
-		;
 		HttpSession session = request.getSession();
 
-		if ("Sheldon".equals(username) && "Bazinga".equals(password)) {
+		if ("Sheldon".equals(username) && "Bazinga".equals(password))
 			session.setAttribute("role", "admin");
-			System.out.println("admin");
-		} else {
+		else
 			session.setAttribute("role", "guest");
-			System.out.println("guest");
-		}
 
 		rd.forward(request, response);
 

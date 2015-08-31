@@ -8,7 +8,7 @@
 <title>Comics List</title>
 </head>
 <body>
-	<form action="/MavenProject/index.jsp">
+	<form action="/MavenProject/listComics">
 		<button type="submit">Back</button>
 	</form>
 

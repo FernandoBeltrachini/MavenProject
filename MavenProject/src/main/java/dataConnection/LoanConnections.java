@@ -16,6 +16,8 @@ public class LoanConnections extends DataBaseConnections<Loan> {
 			ComicConnections c = new ComicConnections();
 			String id = l.getComic().getId().toString();
 			l.setComic(c.getComicById(id));
+			if (l.getComic() == null)
+				return "Couldnt get Comic";
 
 			if (!(l.getComic().getCopys() > getCantLoans(l.getComic())))
 				return "No Copys availables";

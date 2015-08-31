@@ -1,19 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Comics List</title>
 </head>
 <body>
-	<form action="/MavenProject/index.jsp">
+	<form action="/MavenProject/backListComic">
 		<button type="submit">Back</button>
 	</form>
 
 	<h1>Comics List</h1>
-	<form action="/MavenProject/abms/addComic.jsp">
+	<form action="/MavenProject/abms/addComic.jsp" class="roles" > 
 		<button type="submit" >Add Comic</button>
 	</form>
 
@@ -26,11 +22,29 @@
 				<td><c:out value="${item.copys}" /></td>
 				
 				<td>
-					<a href="/MavenProject/abms/modifyComic?id=${item.id}" >Edit</a>
-					<a href="/MavenProject/abms/deleteComic?id=${item.id}">Delete</a>
+					<a class="roles" href="/MavenProject/abms/modifyComic?id=${item.id}" >Edit</a>
+					<a class="roles" href="/MavenProject/abms/deleteComic?id=${item.id}">Delete</a>
 				</td>
 		</c:forEach>
 	</table>
 
+
+	<c:choose>
+		<c:when test="${sessionScope.role.equals('admin')}" > 
+			<script type="text/javascript">
+				var elements = document.getElementsByClassName('roles');
+				for (i = 0; i < elements .length ;i++)
+					elements[i].style.visibility = 'visible';
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+				var elements = document.getElementsByClassName('roles');
+				for (i = 0; i < elements .length ;i++)
+					elements[i].style.visibility = 'hidden';
+			</script>
+
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>
