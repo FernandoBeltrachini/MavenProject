@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
 <head>
 <title>Comics List</title>
 </head>
@@ -14,6 +15,13 @@
 	</form>
 
 	<table style="border-color: red;">
+	<tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Copys</th>
+      <th>Actions</th>
+    </tr>
 		<c:forEach items="${allComics}" var="item">
 			<tr>
 				<td><c:out value="${item.id}" /></td>
@@ -27,7 +35,7 @@
 				</td>
 		</c:forEach>
 	</table>
-
+	
 
 	<c:choose>
 		<c:when test="${sessionScope.role.equals('admin')}" > 

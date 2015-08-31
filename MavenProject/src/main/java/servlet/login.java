@@ -31,8 +31,12 @@ public class login extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ServletContext sc = getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher("/index.jsp");;
+		HttpSession session = request.getSession();
+		session.setAttribute("role", null);
+		session.invalidate();
+		rd.forward(request,response);
 
 	}
 
