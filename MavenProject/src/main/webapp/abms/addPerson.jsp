@@ -1,7 +1,7 @@
 
 <html>
-<link rel="stylesheet" type="text/css" href="myStyle.css">
 <head>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
 <title>Add Person</title>
 </head>
 <body>

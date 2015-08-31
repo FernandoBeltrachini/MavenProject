@@ -26,7 +26,7 @@
 		<label>Comic Copys</label>
 		<input type="number" name="copys" required min="0">
 		<br/>
-		<input class="myButton" type="submit" value="Submit">
+		<input type="submit" value="Submit">
 		
 	</form>
 	

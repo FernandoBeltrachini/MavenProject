@@ -1,18 +1,18 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-<link rel="stylesheet" type="text/css" href="myStyle.css">
 <head>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
 <title>Persons List</title>
 </head>
 <body>
 	<form action="/MavenProject/menu/loginMenu.jsp">
-		<button type="submit">Back</button>
+		<button  class="myButton" type="submit">Back</button>
 	</form>
 
 
 	<form action="/MavenProject/abms/addPerson.jsp" class="roles">
-		<button type="submit">Add Person</button>
+		<button class="myButton" type="submit">Add Person</button>
 	</form>
 	<h1>Persons List</h1>
 	<table>

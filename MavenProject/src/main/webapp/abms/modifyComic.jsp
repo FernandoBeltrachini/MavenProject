@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<title>Comics List</title>
+<link rel="stylesheet" type="text/css" href="myStyle.css">
+<title>Modify Comic</title>
 </head>
 <body>
 	<form action="/MavenProject/listComics">
-		<button type="submit">Back</button>
+		<button class="myButton" type="submit">Back</button>
 	</form>
 
 	<h1>Comics to be modified</h1>
